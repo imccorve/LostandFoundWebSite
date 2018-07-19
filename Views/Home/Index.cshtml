@@ -1,18 +1,37 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div class="jumbotron">
+@*<div class="jumbotron">
     <h1>Lost and Found Pets</h1>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Find Your Pets</h2>
-        <p>
+</div>*@
+<div class="container">
+    <div class="starter-template">
+        <h1>Find Your Pets</h1>
+        <p class="lead">
             Lost and Found Pets is a web application to help reunite lost
             pets with their owners. If you are looking for a lost pet or
             have found a lost animal, please use the "Make A Post" link above.
         </p>
     </div>
+<div class="container frontpage">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
+            <div class="caption">
+            <a asp-area="" asp-controller="Posts" asp-action="Index">Posts</a>
+            </div>
+            <h3>Lost</h3>
+        </div>
+        <div class="col-md-6">
+            <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
+            <div class="caption">
+                <a asp-area="" asp-controller="Posts" asp-action="Index">Posts</a>
+            </div>
+            <h3>Found</h3>
+        </div>
+
+    </div>
+</div>
 </div>
 @*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
         <ol class="carousel-indicators">

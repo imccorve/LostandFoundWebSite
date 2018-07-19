@@ -9,7 +9,12 @@
     padding-left: 15px;
     padding-right: 15px;
 }
-
+.caption {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+}
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
@@ -20,7 +25,13 @@
 .carousel-inner .item img[src$=".svg"] {
     width: 100%;
 }
-
+.frontpage .col-md-6 {
+    text-align: center;
+}
+.starter-template {
+    padding: 40px 15px;
+    text-align: center;
+}
 /* QR code generator */
 #qrCode {
     margin: 15px;
