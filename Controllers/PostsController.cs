@@ -19,10 +19,39 @@ namespace LostandFoundAnimals.Controllers
         }
 
         // GET: Posts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
+            searchString = "muuuusssssaaaa";
+            ViewData["Message"] = searchString;
+
             var lostandFoundAnimalsContext = _context.Post.Include(p => p.Address);
+            var posts = from s in _context.Post.Include(p => p.Address)
+                        select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                posts = posts.Where(s => s.PostText.Contains(searchString));
+            }
             return View(await lostandFoundAnimalsContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Lost(string searchString)
+        {
+            ViewData["Message"] = searchString;
+            var posts = from s in _context.Post.Include(p => p.Address)
+                           select s;
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    posts = posts.Where(s => s.PostText.Contains(searchString));
+            //}
+            posts = posts.Where(s => s.LostOrFound == "Found");
+            //// Retrieve Genre and its Associated Albums from database
+            //var genreModel = this.storeDB.Post
+                //.Single(g => g.LostOrFound == lost);
+            //var lostandFoundAnimalsContext = _context.Post.Include(p => p.Address);
+            //return View(await lostandFoundAnimalsContext.ToListAsync());
+            //return View(posts.ToList());
+            return View(await posts.ToListAsync());
+
         }
 
         // GET: Posts/Details/5

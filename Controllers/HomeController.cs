@@ -10,14 +10,18 @@ namespace LostandFoundAnimals.Controllers
 {
     public class HomeController : Controller
     {
+
+
         public IActionResult Index()
         {
             return View();
         }
-
-        public IActionResult About()
+        public IActionResult Welcome(){
+            return View();
+        }
+        public IActionResult About(string searchString)
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = searchString;
 
             return View();
         }

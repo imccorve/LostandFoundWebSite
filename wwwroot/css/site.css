@@ -32,6 +32,19 @@
     padding: 40px 15px;
     text-align: center;
 }
+
+.thumbnail {
+    /*display: block;*/
+    height: 100%;
+    /*width: 100%;*/
+    padding: 10px;
+}
+
+.thumbnail img {
+    display: block;
+    width: auto;
+    height: 100%;
+}
 /* QR code generator */
 #qrCode {
     margin: 15px;
