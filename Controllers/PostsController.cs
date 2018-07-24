@@ -19,31 +19,43 @@ namespace LostandFoundAnimals.Controllers
         }
 
         // GET: Posts
-        public async Task<IActionResult> Index(string searchString)
+        public  IActionResult Index(int? id)
+        //public async Task<IActionResult> Index(int? id)
         {
-            searchString = "muuuusssssaaaa";
-            ViewData["Message"] = searchString;
+            //searchString = "muuuusssssaaaa";
+            //ViewData["Message"] = searchString;
+            // .Include is eager loading
+            var viewModel = new PostIndexData();
+            viewModel.Posts = _context.Post
+                .Include(i => i.Address)
+                .Include(i => i.Animal);
 
-            var lostandFoundAnimalsContext = _context.Post.Include(p => p.Address);
-            var posts = from s in _context.Post.Include(p => p.Address)
-                        select s;
-            if (!String.IsNullOrEmpty(searchString))
+            if (id != null)
             {
-                posts = posts.Where(s => s.PostText.Contains(searchString));
+                ViewBag.PostID = id.Value;
+                viewModel.Animal = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Animal;
+                viewModel.Address = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Address;
             }
-            return View(await lostandFoundAnimalsContext.ToListAsync());
+            return View(viewModel);
+            //var lostandFoundAnimalsContext = _context.Post.Include(p => p.Address);
+            //var posts = from s in _context.Post.Include(p => p.Address)
+            //            select s;
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    posts = posts.Where(s => s.PostText.Contains(searchString));
+            //}
+            //return View(await lostandFoundAnimalsContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Lost(string searchString)
+        public async Task<IActionResult> Lost()
         {
-            ViewData["Message"] = searchString;
             var posts = from s in _context.Post.Include(p => p.Address)
                            select s;
             //if (!String.IsNullOrEmpty(searchString))
             //{
             //    posts = posts.Where(s => s.PostText.Contains(searchString));
             //}
-            posts = posts.Where(s => s.LostOrFound == "Found");
+            posts = posts.Where(s => s.LostOrFound == "Lost");
             //// Retrieve Genre and its Associated Albums from database
             //var genreModel = this.storeDB.Post
                 //.Single(g => g.LostOrFound == lost);
@@ -54,6 +66,24 @@ namespace LostandFoundAnimals.Controllers
 
         }
 
+        public async Task<IActionResult> Found()
+        {
+            var posts = from s in _context.Post.Include(p => p.Address)
+                        select s;
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    posts = posts.Where(s => s.PostText.Contains(searchString));
+            //}
+            posts = posts.Where(s => s.LostOrFound == "Found");
+            //// Retrieve Genre and its Associated Albums from database
+            //var genreModel = this.storeDB.Post
+            //.Single(g => g.LostOrFound == lost);
+            //var lostandFoundAnimalsContext = _context.Post.Include(p => p.Address);
+            //return View(await lostandFoundAnimalsContext.ToListAsync());
+            //return View(posts.ToList());
+            return View(await posts.ToListAsync());
+
+        }
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {

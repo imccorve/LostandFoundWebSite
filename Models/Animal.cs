@@ -5,6 +5,7 @@ namespace LostandFoundAnimals.Models
 {
     public class Animal
     {
+        //Add animalname
         public int AnimalID { get; set; }
         public byte[] Image { get; set; }
         //public int PostID { get; set; }

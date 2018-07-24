@@ -1,68 +1,154 @@
-@model IEnumerable<LostandFoundAnimals.Models.Post>
+@*@model IEnumerable<LostandFoundAnimals.Models.Post>*@
+@model LostandFoundAnimals.Models.PostIndexData
 @{
     ViewData["Title"] = "Index";
 }
-<h3>@ViewData["Message"]</h3>
+
 
 <h2>Index</h2>
-<div class="container">
-    <div class="row">
-        @foreach (var item in Model)
+<table class="table">
+    <tr>
+        <th>Details</th>
+        <th>Date</th>
+        <th>Resolved?</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Posts)
+    {
+        string selectedRow = "";
+        if (item.PostID == ViewBag.PostID)
         {
-        <div class="col-md-4">
-            @Html.DisplayFor(modelItem => item.PostText)
+            selectedRow = "success";
+
+        }
+        <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.PostText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resolved)
+            </td>
+            <td>
+                @if (item.Address != null)
+                {
+                    @item.Address.City
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Select", "Index", new { id = item.PostID })
+            </td>
+        </tr>
+
+    }
+</table>
+@if (Model.Animal != null)
+{
+    <h3>Animal</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Animal ID</th>
+            <th>Gender</th>
+        </tr>
+        <tr class="success">
+            <td>
+                @*@Html.ActionLink("Select", "Index", new { PostID = Model.Post.PostID })*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Animal.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Animal.AnimalID)
+            </td>
+        </tr>
+    </table>
+    <h3>Address</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Street</th>
+            <th>City</th>
+            <th>Zipcode</th>
+        </tr>
+        <tr class="success">
+            <td>
+                @*@Html.ActionLink("Select", "Index", new { PostID = Model.Post.PostID })*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Address.Line1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Address.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Address.ZipOrPostcode)
+            </td>
+        </tr>
+    </table>
+}
+@*List of all the posts*@
+@*<div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => item.PostText)
+            </div>
+            }
         </div>
-        }
-    </div>
-</div>
-    <p>
-            <a asp-action="Create">Create New</a>
-        </p>
-    @*<table class="table">
-            <thead>
-                <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.PostText)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Date)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.LostOrFound)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Resolved)
-                        </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Address)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-        @foreach (var item in Model) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostText)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LostOrFound)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Resolved)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address.AddressID)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.PostID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.PostID">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.PostID">Delete</a>
-                    </td>
-                </tr>
-        }
-            </tbody>
-        </table>*@
+    </div>*@
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@*table of all the posts*@
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PostText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LostOrFound)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Resolved)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LostOrFound)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Resolved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address.City)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PostID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PostID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PostID">Delete</a>
+            </td>
+        </tr>
+    }
+        </tbody>
+    </table>*@

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<LostandFoundAnimals.Models.Post>
+@{
+    ViewData["Title"] = "Found";
+}
+<h2>Welcome</h2>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                @Html.DisplayFor(modelItem => item.PostText)
+            </div>
+        }
+    </div>
+</div>
