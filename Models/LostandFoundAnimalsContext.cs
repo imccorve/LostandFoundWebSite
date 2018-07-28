@@ -22,12 +22,13 @@ namespace LostandFoundAnimals.Models
             modelBuilder.Entity<Animal>().ToTable("Animal");
             modelBuilder.Entity<Post>().ToTable("Post");
 
+
             //modelBuilder.Entity<Post>()
-            //            .HasKey(p => p.AnimalID);
-            //modelBuilder.Entity<Post>()
-                        //.HasOne(p => p.Animal)
-                        //.WithOne(i => i.Post)
-                        //.HasForeignKey<Animal>(b => b.PostID);
+            //.HasOne(p => p.Animal)
+            //.WithOne(i => i.Post)
+            //.HasForeignKey<Animal>(b => b.PostID);
+            modelBuilder.Entity<Post>()
+                        .HasOne(p => p.Address).WithOne(p => p.Post);
             modelBuilder.Entity<User>().ToTable("User");
         }
     }

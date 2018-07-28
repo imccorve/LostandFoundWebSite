@@ -26,6 +26,9 @@
     <Content Remove="Views\Posts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="LostandFoundAnimals.db" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Views\Posts\Create.cshtml" />
     <None Include="Views\Posts\Delete.cshtml" />
     <None Include="Views\Posts\Details.cshtml" />

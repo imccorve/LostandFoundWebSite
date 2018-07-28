@@ -13,5 +13,6 @@ namespace LostandFoundAnimals.Models
         //public string CountryID { get; set; }
         public string OtherAddressDetails { get; set; }
 
+        public Post Post { get; set; }
     }
 }

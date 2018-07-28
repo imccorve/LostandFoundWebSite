@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LostandFoundAnimals.Models;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace LostandFoundAnimals.Controllers
 {
@@ -106,8 +107,18 @@ namespace LostandFoundAnimals.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
-            ViewData["AddressID"] = new SelectList(_context.Address, "AddressID", "AddressID");
-            return View();
+            //var post = new Post();
+            //post.Animal = new Animal();
+            //post.Animal.Breeds = new List<Breed>();
+            //post.Address = new Address();
+            //ViewData["AddressID"] = new SelectList(_context.Address, "AddressID", "AddressID");
+            //return View();
+
+            var model = new PostViewModel();
+            //viewModel.Posts = _context.Post
+                //.Include(i => i.Address)
+                //.Include(i => i.Animal);
+            return View(model);
         }
 
         // POST: Posts/Create
@@ -115,16 +126,63 @@ namespace LostandFoundAnimals.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostID,PostText,AddressID,Date,LostOrFound,Resolved")] Post post)
+        //public async Task<IActionResult> Create([Bind("PostText,Date,LostOrFound,Resolved")] Post post)
+        public IActionResult Create(PostViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(post);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AddressID"] = new SelectList(_context.Address, "AddressID", "AddressID", post.AddressID);
-            return View(post);
+            //try
+            //{
+            //    if (ModelState.IsValid)
+            //    {
+            //        _context.Post.Add(post);
+            //        await _context.SaveChangesAsync();
+            //        return RedirectToAction(nameof(Index));
+            //    }
+            //}
+            //catch (RetryLimitExceededException)
+            //{
+            //    ModelState.AddModelError("", "Unable to save changes. Try again.");
+            //}
+            ////ViewData["AddressID"] = new SelectList(_context.Address, "AddressID", "AddressID", post.AddressID);
+            //return View(post);
+
+            //if (id != null)
+            //{
+            //    ViewBag.PostID = id.Value;
+            //    viewModel.Animal = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Animal;
+            //    viewModel.Address = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Address;
+            //}
+            //return View(viewModel);
+
+            //if (ModelState.IsValid)
+            //{
+            //    viewModel.Post = new Post();
+            //    viewModel.Address =
+            //    viewModel.Address = new Address();
+            //    viewModel.Animal = new Animal();
+
+            //    _context.Add(viewModel.Post);
+            //    _context.Address.Add(post.Address);
+            //    _context.SaveChanges();
+            //}
+
+            //Post Model = viewModel.Post;
+            //if(ModelState.IsValid){
+            //    Post post = new Post();
+            //    post.Address = Model.Address;
+            //    post.Animal = Model.Animal;
+
+            //    _context.Add(post);
+            //    _context.Address.Add(post.Address);
+            //    _context.SaveChanges();
+            //}
+            var item = new Post();
+            item = model.Post;
+            item.Address = model.Address;
+            item.Animal = model.Animal;
+            _context.Post.Add(item);
+            _context.SaveChanges();
+
+            return RedirectToAction("Create");
         }
 
         // GET: Posts/Edit/5

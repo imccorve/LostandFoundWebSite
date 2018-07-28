@@ -21,26 +21,28 @@
             selectedRow = "success";
 
         }
-        <tr class="@selectedRow">
-            <td>
-                @Html.DisplayFor(modelItem => item.PostText)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Resolved)
-            </td>
-            <td>
-                @if (item.Address != null)
-                {
-                    @item.Address.City
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Select", "Index", new { id = item.PostID })
-            </td>
-        </tr>
+    <tr class="@selectedRow">
+        <td>
+            @Html.DisplayFor(modelItem => item.PostText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Resolved)
+        </td>
+
+        @if (item.Address != null)
+    {
+        <td>@item.Address.City</td>
+        <td> @item.Address.Line1 </td>
+
+    }
+
+        <td>
+            @Html.ActionLink("Select", "Index", new { id = item.PostID })
+        </td>
+    </tr>
 
     }
 </table>
@@ -65,6 +67,9 @@
             </td>
         </tr>
     </table>
+}
+@if (Model.Address != null)
+{
     <h3>Address</h3>
     <table class="table">
         <tr>

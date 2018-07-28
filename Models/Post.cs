@@ -7,7 +7,7 @@ namespace LostandFoundAnimals.Models
         //public int UserID { get; set; }
         //public int AnimalID { get; set; }
         public string PostText { get; set; }
-        public int AddressID { get; set; }
+        public int? AddressID { get; set; }
         public DateTime Date { get; set; }
         public string LostOrFound { get; set; }
         public bool Resolved { get; set; }
