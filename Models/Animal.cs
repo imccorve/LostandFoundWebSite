@@ -7,9 +7,10 @@ namespace LostandFoundAnimals.Models
     {
         //Add animalname
         public int AnimalID { get; set; }
+        public string Name { get; set; }
+        public string Gender { get; set; }
         public byte[] Image { get; set; }
         //public int PostID { get; set; }
-        public string Gender { get; set; }
 
 
         //public int PostForeignKey { get; set; }
