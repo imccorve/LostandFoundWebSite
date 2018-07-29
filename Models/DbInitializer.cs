@@ -59,8 +59,8 @@ namespace LostandFoundAnimals.Models
 
             var animals = new Animal[]
 {
-                new Animal{Gender="Male", PostID=1},
-                new Animal{Gender="Female", PostID=2}
+                new Animal{Gender=Gender.Male, PostID=1},
+                new Animal{Gender=Gender.Female, PostID=2}
 };
             foreach (Animal e in animals)
             {
