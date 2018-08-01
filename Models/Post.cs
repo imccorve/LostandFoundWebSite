@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace LostandFoundAnimals.Models
@@ -14,12 +15,14 @@ namespace LostandFoundAnimals.Models
         //public int UserID { get; set; }
         //public int AnimalID { get; set; }
         [Required]
+        [DisplayName("Details")]
         [StringLength(250, ErrorMessage = "Description cannot be longer than 250 characters.")]
         public string PostText { get; set; }
         public int? AddressID { get; set; }
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         [Required]
+        [DisplayName("Lost or Found")]
         public string LostOrFound { get; set; }
         public bool Resolved { get; set; }
 

@@ -30,9 +30,13 @@
     <Content Remove="Views\Animals\Edit.cshtml" />
     <Content Remove="Views\Animals\Index.cshtml" />
     <Content Remove="wwwroot\images\adorable-animal-blur-406014.jpg" />
+    <Content Remove="wwwroot\images\adorable-animal-animal-lover-1123999.jpg" />
+    <Content Remove="wwwroot\images\alley-animal-black-688835.jpg" />
+    <Content Remove="wwwroot\images\animal-beagle-canine-460823.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="LostandFoundAnimals.db" />
+    <None Remove="Views\Shared\_HomePageLayout.css" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Posts\Create.cshtml" />
@@ -46,6 +50,9 @@
     <None Include="Views\Animals\Edit.cshtml" />
     <None Include="Views\Animals\Index.cshtml" />
     <None Include="wwwroot\images\animal_bg.jpg" />
+    <None Include="wwwroot\images\animal_bg_3.jpg" />
+    <None Include="wwwroot\images\animal_bg_2.jpg" />
+    <None Include="wwwroot\images\animal_bg_1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Views\Posts\Lost.cs" />

@@ -24,8 +24,7 @@ namespace LostandFoundAnimals.Controllers
         public  IActionResult Index(int? id)
         //public async Task<IActionResult> Index(int? id)
         {
-            //searchString = "muuuusssssaaaa";
-            //ViewData["Message"] = searchString;
+
             // .Include is eager loading
             var viewModel = new PostIndexData();
             viewModel.Posts = _context.Post
@@ -33,7 +32,7 @@ namespace LostandFoundAnimals.Controllers
                 .Include(i => i.Animal)
                 .Include(i => i.Animal.Species);
             //.Include(i => i.Animal.Breeds);
-            //viewModel.Breeds = _context.Breed;
+
             if (id != null)
             {
                 ViewBag.PostID = id.Value;

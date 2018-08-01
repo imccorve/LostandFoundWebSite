@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace LostandFoundAnimals.Models
 {
@@ -15,6 +16,7 @@ namespace LostandFoundAnimals.Models
         //    this.Breeds = new HashSet<Breed>();
         //}
         [Required]
+        [DisplayName("Pet's name (if applicable)")]
         public string AnimalName { get; set; }
         public int AnimalID { get; set; }
         [Required]

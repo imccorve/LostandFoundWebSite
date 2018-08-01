@@ -1,16 +1,16 @@
 @*@model IEnumerable<LostandFoundAnimals.Models.Post>*@
 @model LostandFoundAnimals.Models.PostIndexData
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "An Index";
 }
 
 
-<h2>Index</h2>
+<h2>A table of all lost or found animals.</h2>
 <table class="table">
     <tr>
         <th>Details</th>
         <th>Date</th>
-        <th>Resolved?</th>
+        @*<th>Resolved?</th>*@
         <th></th>
     </tr>
     @foreach (var item in Model.Posts)
@@ -32,12 +32,12 @@
             @Html.DisplayFor(modelItem => item.Resolved)
         </td>*@
 
-        @if (item.Address != null)
+        @*@if (item.Address != null)
     {
         <td>@item.Address.City</td>
         <td> @item.Address.Line1 </td>
 
-    }
+    }*@
 
         <td>
             @Html.ActionLink("Select", "Index", new { id = item.PostID })
@@ -54,7 +54,7 @@
             <th></th>
             <th>Animal Name</th>
             <th>Gender</th>
-            <th>Breed</th>
+            <th>Species</th>
         </tr>
         <tr class="success">
             <td>
@@ -79,17 +79,20 @@
         <tr>
             <th></th>
             <th>Breed Name</th>
-            <th>Breed ID</th>
+            @*<th>Breed ID</th>*@
         </tr>
             @foreach (var item in Model.Breeds)
             { 
                 <tr class=success>
                     <td>
-                        @Html.DisplayFor(modelItem => item.BreedName)
+                        
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.BreedID)
+                        @Html.DisplayFor(modelItem => item.BreedName)
                     </td>
+                    @*<td>
+                        @Html.DisplayFor(modelItem => item.BreedID)
+                    </td>*@
                 </tr>
             }
 

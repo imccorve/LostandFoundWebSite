@@ -28,7 +28,7 @@ namespace LostandFoundAnimals.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "A contact page.";
 
             return View();
         }
