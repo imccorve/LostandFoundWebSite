@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Post.LostOrFound" class="control-label"></label>
-                <input asp-for="Post.LostOrFound" class="form-control" />
+                <select asp-for="Post.LostOrFound" class="form-control" asp-items="@Html.GetEnumSelectList<LostOrFound>()"></select>
                 <span asp-validation-for="Post.LostOrFound" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -34,21 +34,45 @@
             </div>
         </div>*@
             @*Enter Animal Information*@
-            @*<div class="form-group">
-                <label asp-for="Animal.Name" class="control-label"></label>
-                <input asp-for="Animal.Name" class="form-control" />
-                <span asp-validation-for="Animal.Name" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
-                <label asp-for="Animal.Gender" class="control-label"></label>
-                <input asp-for="Animal.Gender" class="form-control" />
-                <span asp-validation-for="Animal.Gender" class="text-danger"></span>
+                <label asp-for="Animal.AnimalName" class="control-label"></label>
+                <input asp-for="Animal.AnimalName" class="form-control" />
+                <span asp-validation-for="Animal.AnimalName" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="Animal.Image" class="control-label"></label>
-                <input asp-for="Animal.Image" class="form-control" />
-                <span asp-validation-for="Animal.Image" class="text-danger"></span>
-            </div>*@
+            <label asp-for="Animal.Gender" class="control-label"></label>
+            <input asp-for="Animal.Gender" class="form-control" />
+            <span asp-validation-for="Animal.Gender" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="Animal.Gender" class="control-label"></label>
+                <select asp-for="Animal.Gender" class="form-control" asp-items="@Html.GetEnumSelectList<Gender>()"></select>
+                <span asp-validation-for="Animal.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Animal.Species" class="control-label"></label>
+                <select asp-for="Animal.SpeciesID" asp-items="@(new SelectList(Model.SpeciesList, "SpeciesID", "SpeciesName"))" class="form-control"></select>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Animal.Image" class="control-label"></label>
+            <input asp-for="Animal.Image" class="form-control" />
+            <span asp-validation-for="Animal.Image" class="text-danger"></span>
+        </div>*@
+            @*Breed(s)*@
+            <div class="form-group">
+                <label asp-for="Breed1" class=control-label></label>
+                <input asp-for="Breed1.BreedName" class="form-control" />
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Animal.Breeds" class="control-label"></label>
+            <input asp-for="Animal.Breeds" class=form-control />
+            <span asp-validation-for="Animal.Breeds" class="text-danger"></span>
+        </div>*@
+            @*@foreach (var bre in Model.Breeds)
+        {
+            @Html.EditorFor(modelItem => bre.BreedName)
+        }*@
+
             @*Enter Address Information*@
             <div class="form-group">
                 <label asp-for="Address.Line1" class="control-label"></label>
@@ -61,9 +85,14 @@
                 <span asp-validation-for="Address.City" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Post.Address.ZipOrPostcode" class="control-label"></label>
-                <input asp-for="Post.Address.ZipOrPostcode" class="form-control" />
-                <span asp-validation-for="Post.Address.ZipOrPostcode" class="text-danger"></span>
+                <label asp-for="Address.ZipOrPostcode" class="control-label"></label>
+                <input asp-for="Address.ZipOrPostcode" class="form-control" />
+                <span asp-validation-for="Address.ZipOrPostcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.StateProvinceCounty" class="control-label"></label>
+                <input asp-for="Address.StateProvinceCounty" class="form-control" />
+                <span asp-validation-for="Address.StateProvinceCounty" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

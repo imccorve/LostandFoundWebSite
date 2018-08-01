@@ -2,6 +2,8 @@
 using System;
 using System.Linq;
 using System.Diagnostics;
+using System.Collections.Generic;
+
 //namespace ContosoUniversity.Data
 namespace LostandFoundAnimals.Models
 {
@@ -57,16 +59,28 @@ namespace LostandFoundAnimals.Models
             }
             context.SaveChanges();
 
+            var species = new Species[]
+            {
+                new Species{SpeciesName="Cat"},
+                new Species{SpeciesName="Dog"}
+            };
+            foreach (Species e in species)
+            {
+                context.Species.Add(e);
+            }
+            context.SaveChanges();
+
             var animals = new Animal[]
-{
-                new Animal{Gender=Gender.Male, PostID=1},
-                new Animal{Gender=Gender.Female, PostID=2}
-};
+            {
+                new Animal{AnimalName= "Lassy", Gender=Gender.Male, PostID=1,SpeciesID=1},
+                new Animal{AnimalName="Bullet", Gender=Gender.Female, PostID=2,SpeciesID=2}
+            };
             foreach (Animal e in animals)
             {
                 context.Animal.Add(e);
             }
             context.SaveChanges();
+
             var breeds = new Breed[]
             {
                 new Breed{AnimalID=1,BreedName="Pug"},

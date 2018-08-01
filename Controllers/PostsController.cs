@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LostandFoundAnimals.Models;
 using Microsoft.EntityFrameworkCore.Storage;
+using System.Collections.ObjectModel;
 
 namespace LostandFoundAnimals.Controllers
 {
@@ -29,12 +30,18 @@ namespace LostandFoundAnimals.Controllers
             var viewModel = new PostIndexData();
             viewModel.Posts = _context.Post
                 .Include(i => i.Address)
-                .Include(i => i.Animal);
-
+                .Include(i => i.Animal)
+                .Include(i => i.Animal.Species);
+            //.Include(i => i.Animal.Breeds);
+            //viewModel.Breeds = _context.Breed;
             if (id != null)
             {
                 ViewBag.PostID = id.Value;
                 viewModel.Animal = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Animal;
+                //viewModel.Species = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Animal.Species;
+                //viewModel.Breeds = _context.Breed;
+                //viewModel.Breeds = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Animal.Breeds;
+                viewModel.Breeds = from s in _context.Breed.Where(i => i.AnimalID == viewModel.Animal.AnimalID) select s;
                 viewModel.Address = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Address;
             }
             return View(viewModel);
@@ -115,6 +122,10 @@ namespace LostandFoundAnimals.Controllers
             //return View();
 
             var model = new PostViewModel();
+
+            model.SpeciesList = _context.Species.ToList();
+            //ViewData["SpeciesID"] = new SelectList(_context.Species, "SpeciesID", "SpeciesID");
+
             //viewModel.Posts = _context.Post
                 //.Include(i => i.Address)
                 //.Include(i => i.Animal);
@@ -129,58 +140,32 @@ namespace LostandFoundAnimals.Controllers
         //public async Task<IActionResult> Create([Bind("PostText,Date,LostOrFound,Resolved")] Post post)
         public IActionResult Create(PostViewModel model)
         {
-            //try
-            //{
-            //    if (ModelState.IsValid)
-            //    {
-            //        _context.Post.Add(post);
-            //        await _context.SaveChangesAsync();
-            //        return RedirectToAction(nameof(Index));
-            //    }
-            //}
-            //catch (RetryLimitExceededException)
-            //{
-            //    ModelState.AddModelError("", "Unable to save changes. Try again.");
-            //}
-            ////ViewData["AddressID"] = new SelectList(_context.Address, "AddressID", "AddressID", post.AddressID);
-            //return View(post);
-
-            //if (id != null)
-            //{
-            //    ViewBag.PostID = id.Value;
-            //    viewModel.Animal = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Animal;
-            //    viewModel.Address = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Address;
-            //}
-            //return View(viewModel);
-
-            //if (ModelState.IsValid)
-            //{
-            //    viewModel.Post = new Post();
-            //    viewModel.Address =
-            //    viewModel.Address = new Address();
-            //    viewModel.Animal = new Animal();
-
-            //    _context.Add(viewModel.Post);
-            //    _context.Address.Add(post.Address);
-            //    _context.SaveChanges();
-            //}
-
-            //Post Model = viewModel.Post;
-            //if(ModelState.IsValid){
-            //    Post post = new Post();
-            //    post.Address = Model.Address;
-            //    post.Animal = Model.Animal;
-
-            //    _context.Add(post);
-            //    _context.Address.Add(post.Address);
-            //    _context.SaveChanges();
-            //}
             var item = new Post();
             item = model.Post;
             item.Address = model.Address;
             item.Animal = model.Animal;
+
+            var breed1 = new Breed();
+            breed1 = model.Breed1;
+
             _context.Post.Add(item);
             _context.SaveChanges();
+
+            //model.Breeds = new Collection<Breed>();
+
+            //breed1.AnimalID = model.Animal.AnimalID;
+            breed1.AnimalID = _context.Animal.OrderByDescending(p => p.AnimalID)
+                .FirstOrDefault().AnimalID;
+            //item.Animal.Breeds.Add(breed1);
+
+            //var breed2 = new Breed();
+            //breed2 = model.Breed2;
+            //item.Animal.Breeds = model.Breeds;
+            //ViewData["SpeciesID"] = new SelectList(_context.Species, "SpeciesID", "SpeciesID", model.Animal.SpeciesID);
+
+            _context.Breed.Add(breed1);
+            _context.SaveChanges();
+
 
             return RedirectToAction("Create");
         }
@@ -272,5 +257,7 @@ namespace LostandFoundAnimals.Controllers
         {
             return _context.Post.Any(e => e.PostID == id);
         }
+        
+
     }
 }

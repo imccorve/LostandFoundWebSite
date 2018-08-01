@@ -24,6 +24,12 @@
     <Content Remove="Views\Posts\Details.cshtml" />
     <Content Remove="Views\Posts\Edit.cshtml" />
     <Content Remove="Views\Posts\Index.cshtml" />
+    <Content Remove="Views\Animals\Create.cshtml" />
+    <Content Remove="Views\Animals\Delete.cshtml" />
+    <Content Remove="Views\Animals\Details.cshtml" />
+    <Content Remove="Views\Animals\Edit.cshtml" />
+    <Content Remove="Views\Animals\Index.cshtml" />
+    <Content Remove="wwwroot\images\adorable-animal-blur-406014.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="LostandFoundAnimals.db" />
@@ -34,8 +40,15 @@
     <None Include="Views\Posts\Details.cshtml" />
     <None Include="Views\Posts\Edit.cshtml" />
     <None Include="Views\Posts\Index.cshtml" />
+    <None Include="Views\Animals\Create.cshtml" />
+    <None Include="Views\Animals\Delete.cshtml" />
+    <None Include="Views\Animals\Details.cshtml" />
+    <None Include="Views\Animals\Edit.cshtml" />
+    <None Include="Views\Animals\Index.cshtml" />
+    <None Include="wwwroot\images\animal_bg.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Views\Posts\Lost.cs" />
+    <Compile Remove="Controllers\HomeControllerTests.cs" />
   </ItemGroup>
 </Project>

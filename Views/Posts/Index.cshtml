@@ -28,9 +28,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Resolved)
-        </td>
+        </td>*@
 
         @if (item.Address != null)
     {
@@ -52,21 +52,49 @@
     <table class="table">
         <tr>
             <th></th>
-            <th>Animal ID</th>
+            <th>Animal Name</th>
             <th>Gender</th>
+            <th>Breed</th>
         </tr>
         <tr class="success">
             <td>
                 @*@Html.ActionLink("Select", "Index", new { PostID = Model.Post.PostID })*@
             </td>
             <td>
-                @Html.DisplayFor(modelItem => Model.Animal.AnimalID)
+                @Html.DisplayFor(modelItem => Model.Animal.AnimalName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => Model.Animal.Gender)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Animal.Species.SpeciesName)
+            </td>
         </tr>
     </table>
+}
+@if (Model.Breeds != null)
+{
+    <h3>Breed</h3>
+    <table class=table>
+        <tr>
+            <th></th>
+            <th>Breed Name</th>
+            <th>Breed ID</th>
+        </tr>
+            @foreach (var item in Model.Breeds)
+            { 
+                <tr class=success>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BreedName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BreedID)
+                    </td>
+                </tr>
+            }
+
+    </table>
+
 }
 @if (Model.Address != null)
 {

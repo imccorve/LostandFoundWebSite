@@ -14,6 +14,7 @@ namespace LostandFoundAnimals.Models
         public DbSet<LostandFoundAnimals.Models.Animal> Animal { get; set; }
         public DbSet<LostandFoundAnimals.Models.Post> Post { get; set; }
         public DbSet<LostandFoundAnimals.Models.User> User { get; set; }
+        public DbSet<LostandFoundAnimals.Models.Species> Species { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,6 +22,7 @@ namespace LostandFoundAnimals.Models
             modelBuilder.Entity<Breed>().ToTable("Breed");
             modelBuilder.Entity<Animal>().ToTable("Animal");
             modelBuilder.Entity<Post>().ToTable("Post");
+            modelBuilder.Entity<Species>().ToTable("Species");
 
 
             //modelBuilder.Entity<Post>()
@@ -29,6 +31,8 @@ namespace LostandFoundAnimals.Models
             //.HasForeignKey<Animal>(b => b.PostID);
             modelBuilder.Entity<Post>()
                         .HasOne(p => p.Address).WithOne(p => p.Post);
+            modelBuilder.Entity<Animal>()
+                        .HasOne(p => p.Species);
             modelBuilder.Entity<User>().ToTable("User");
         }
     }

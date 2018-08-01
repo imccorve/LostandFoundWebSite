@@ -10,6 +10,7 @@ namespace LostandFoundAnimals.Models
     public class Post
     {
         public int PostID { get; set; }
+        // variable for post title
         //public int UserID { get; set; }
         //public int AnimalID { get; set; }
         [Required]

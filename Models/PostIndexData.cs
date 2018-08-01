@@ -14,6 +14,8 @@ namespace LostandFoundAnimals.Models
         public IEnumerable<Post> Posts { get; set; }
         public Address Address { get; set; }
         public Animal Animal { get; set; }
+        public Species Species { get; set; }
+        public IEnumerable<Breed> Breeds {get;set;}
 
     }
 
