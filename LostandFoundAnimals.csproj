@@ -44,11 +44,6 @@
     <None Include="Views\Posts\Details.cshtml" />
     <None Include="Views\Posts\Edit.cshtml" />
     <None Include="Views\Posts\Index.cshtml" />
-    <None Include="Views\Animals\Create.cshtml" />
-    <None Include="Views\Animals\Delete.cshtml" />
-    <None Include="Views\Animals\Details.cshtml" />
-    <None Include="Views\Animals\Edit.cshtml" />
-    <None Include="Views\Animals\Index.cshtml" />
     <None Include="wwwroot\images\animal_bg.jpg" />
     <None Include="wwwroot\images\animal_bg_3.jpg" />
     <None Include="wwwroot\images\animal_bg_2.jpg" />
@@ -57,5 +52,7 @@
   <ItemGroup>
     <Compile Remove="Views\Posts\Lost.cs" />
     <Compile Remove="Controllers\HomeControllerTests.cs" />
+    <Compile Remove="Controllers\AnimalsController.cs" />
+    <Compile Remove="Controllers\TestController.cs" />
   </ItemGroup>
 </Project>
