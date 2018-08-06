@@ -13,6 +13,29 @@
     font-size:70px;
 
 }
+boxes {
+    display:grid;
+}
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+/* Listing block*/
+.pet {
+    border: medium solid #cdcdcd;
+    padding: 10px;
+    margin: 0 -2px -2px 0;
+}
+.pet img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.pet h4 {
+    text-align:center;
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {

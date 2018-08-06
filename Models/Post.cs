@@ -23,7 +23,7 @@ namespace LostandFoundAnimals.Models
         public DateTime Date { get; set; }
         [Required]
         [DisplayName("Lost or Found")]
-        public string LostOrFound { get; set; }
+        public LostOrFound LostOrFound { get; set; }
         public bool Resolved { get; set; }
 
         //public User User { get; set; }

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using LostandFoundAnimals.Models;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Collections.ObjectModel;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace LostandFoundAnimals.Controllers
 {
@@ -24,7 +26,6 @@ namespace LostandFoundAnimals.Controllers
         public  IActionResult Index(int? id)
         //public async Task<IActionResult> Index(int? id)
         {
-
             // .Include is eager loading
             var viewModel = new PostIndexData();
             viewModel.Posts = _context.Post
@@ -38,37 +39,21 @@ namespace LostandFoundAnimals.Controllers
                 ViewBag.PostID = id.Value;
                 viewModel.Animal = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Animal;
                 //viewModel.Species = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Animal.Species;
-                //viewModel.Breeds = _context.Breed;
                 //viewModel.Breeds = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Animal.Breeds;
                 viewModel.Breeds = from s in _context.Breed.Where(i => i.AnimalID == viewModel.Animal.AnimalID) select s;
                 viewModel.Address = viewModel.Posts.Where(i => i.PostID == id.Value).Single().Address;
             }
             return View(viewModel);
-            //var lostandFoundAnimalsContext = _context.Post.Include(p => p.Address);
-            //var posts = from s in _context.Post.Include(p => p.Address)
-            //            select s;
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    posts = posts.Where(s => s.PostText.Contains(searchString));
-            //}
-            //return View(await lostandFoundAnimalsContext.ToListAsync());
+
         }
 
         public async Task<IActionResult> Lost()
         {
             var posts = from s in _context.Post.Include(p => p.Address)
+                                          .Include(p=>p.Animal)
                            select s;
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    posts = posts.Where(s => s.PostText.Contains(searchString));
-            //}
-            posts = posts.Where(s => s.LostOrFound == "Lost");
-            //// Retrieve Genre and its Associated Albums from database
-            //var genreModel = this.storeDB.Post
-                //.Single(g => g.LostOrFound == lost);
-            //var lostandFoundAnimalsContext = _context.Post.Include(p => p.Address);
-            //return View(await lostandFoundAnimalsContext.ToListAsync());
-            //return View(posts.ToList());
+
+            posts = posts.Where(s => s.LostOrFound == LostOrFound.Lost);
             return View(await posts.ToListAsync());
 
         }
@@ -76,18 +61,9 @@ namespace LostandFoundAnimals.Controllers
         public async Task<IActionResult> Found()
         {
             var posts = from s in _context.Post.Include(p => p.Address)
+                                          .Include(p => p.Animal)
                         select s;
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    posts = posts.Where(s => s.PostText.Contains(searchString));
-            //}
-            posts = posts.Where(s => s.LostOrFound == "Found");
-            //// Retrieve Genre and its Associated Albums from database
-            //var genreModel = this.storeDB.Post
-            //.Single(g => g.LostOrFound == lost);
-            //var lostandFoundAnimalsContext = _context.Post.Include(p => p.Address);
-            //return View(await lostandFoundAnimalsContext.ToListAsync());
-            //return View(posts.ToList());
+            posts = posts.Where(s => s.LostOrFound == LostOrFound.Found);
             return View(await posts.ToListAsync());
 
         }
@@ -124,10 +100,6 @@ namespace LostandFoundAnimals.Controllers
 
             model.SpeciesList = _context.Species.ToList();
             //ViewData["SpeciesID"] = new SelectList(_context.Species, "SpeciesID", "SpeciesID");
-
-            //viewModel.Posts = _context.Post
-                //.Include(i => i.Address)
-                //.Include(i => i.Animal);
             return View(model);
         }
 
@@ -137,7 +109,7 @@ namespace LostandFoundAnimals.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public async Task<IActionResult> Create([Bind("PostText,Date,LostOrFound,Resolved")] Post post)
-        public IActionResult Create(PostViewModel model)
+        public IActionResult Create(PostViewModel model, List<IFormFile> Image)
         {
             var item = new Post();
             item = model.Post;
@@ -146,6 +118,17 @@ namespace LostandFoundAnimals.Controllers
 
             var breed1 = new Breed();
             breed1 = model.Breed1;
+
+            foreach (var it in Image){
+                if(it.Length > 0)
+                {
+                    using (var stream = new MemoryStream()){
+                        it.CopyTo(stream);
+                        item.Animal.Image = stream.ToArray();
+
+                    }
+                }
+            }
 
             _context.Post.Add(item);
             _context.SaveChanges();
@@ -256,7 +239,6 @@ namespace LostandFoundAnimals.Controllers
         {
             return _context.Post.Any(e => e.PostID == id);
         }
-        
 
     }
 }

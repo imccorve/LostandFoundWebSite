@@ -47,11 +47,11 @@ namespace LostandFoundAnimals.Models
                 new Post{PostText="Hi, I'm looking for my dog named Sally. " +
                             "She's just a couple years old and I think I lost her maybe two or three weeks ago." +
                             "If you find her please let me know as soon as possible. Thanks!", AddressID=2, Date=DateTime.Parse("2005-09-01"),
-                        LostOrFound="Lost",Resolved=false },
+                    LostOrFound=LostOrFound.Lost,Resolved=false },
                 new Post{PostText="I found this green rat in the park the other day." +
                             "He has a weird mole on the back of his neck. He also had a collar." +
                             "Contact me if you happen to know who this might belong to.", AddressID=1, Date=DateTime.Parse("2005-05-23"),
-                        LostOrFound="Found",Resolved=false }
+                    LostOrFound=LostOrFound.Found,Resolved=false }
             };
             foreach (Post c in posts)
             {

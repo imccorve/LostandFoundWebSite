@@ -10,6 +10,7 @@
     <tr>
         <th>Details</th>
         <th>Date</th>
+        <th>Lost or Found</th>
         @*<th>Resolved?</th>*@
         <th></th>
     </tr>
@@ -27,6 +28,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LostOrFound)
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.Resolved)
@@ -55,6 +59,7 @@
             <th>Animal Name</th>
             <th>Gender</th>
             <th>Species</th>
+            <th>Picture</th>
         </tr>
         <tr class="success">
             <td>
@@ -69,6 +74,17 @@
             <td>
                 @Html.DisplayFor(modelItem => Model.Animal.Species.SpeciesName)
             </td>
+            @if (Model.Animal.Image != null)
+            {
+                <td>
+                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Animal.Image)" width="80" height="80" />
+                </td>
+            }
+            else
+            {
+                <td>Not available </td>
+
+            }
         </tr>
     </table>
 }

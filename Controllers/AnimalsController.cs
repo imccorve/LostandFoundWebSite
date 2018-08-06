@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LostandFoundAnimals.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace LostandFoundAnimals.Controllers
 {
@@ -58,10 +59,19 @@ namespace LostandFoundAnimals.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AnimalName,AnimalID,Gender,Image,PostID,SpeciesID")] Animal animal)
+        public async Task<IActionResult> Create([Bind("AnimalName,AnimalID,Gender,Image,PostID,SpeciesID")] Animal animal, IFormFile image)
         {
             if (ModelState.IsValid)
             {
+                //byte[] imageData = null;
+                //HttpPostedFileBase postedFileBase = Request.Files["ImageFile"];
+                //using(var binary = new System.IO.BinaryReader(postedFileBase.InputStream)){
+                //    imageData = binary.ReadBytes(postedFileBase.ContentLength);
+                //}
+                //animal.Image = imageData;
+                //if(image != null){
+                //    var fileName = Path.
+                //}
                 _context.Add(animal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
